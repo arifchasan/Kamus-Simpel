@@ -18,6 +18,10 @@
 				$("#listview").html("");
 			});
 			
+			document.addEventListener("backbutton", function(){
+				navigator.app.exitApp();
+			}, false);
+			
 			FastClick.attach(document.body);
 			
 			db = openDatabase("kamussimple", "1.0", "kamussimple MAIN DATABASE", 200000);

@@ -28,6 +28,10 @@
 		}
 		
 		$(function() {
+		
+			document.addEventListener("backbutton", function(){
+				navigator.app.exitApp();
+			}, false);
 			
 			$(".ui-input-clear").on("click", function (e) {
 				$("#listview").html("");
