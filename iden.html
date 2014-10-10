@@ -59,6 +59,9 @@
 							var len = results.rows.length;
 							for(var i = 0; i < len; i++){
 								$("#listview").append("<li><a href=\"#\"><p><b>"+results.rows.item(i).kata+"</b> "+results.rows.item(i).arti+"</p></a></li>");
+								if(i == (len-1)){
+									refresh();
+								}
 							}
 						}, errorTX);
 					}, errorDB, successTX);
@@ -81,11 +84,15 @@
 		}
 		
 		function successTX(){
-			$("#listview").listview("refresh");
+			
 		}
 		
 		function enid(){
 			window.location='./enid.html';
+		}
+		
+		function refresh(){
+			$("#listview").listview("refresh");
 		}
 	</script>
 </head>
