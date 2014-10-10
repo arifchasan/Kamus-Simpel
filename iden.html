@@ -59,10 +59,9 @@
 							var len = results.rows.length;
 							for(var i = 0; i < len; i++){
 								$("#listview").append("<li><a href=\"#\"><p><b>"+results.rows.item(i).kata+"</b> "+results.rows.item(i).arti+"</p></a></li>");
-								$("#listview").listview("refresh");
 							}
 						}, errorTX);
-					}, errorDB, successDB);
+					}, errorDB, successTX);
 				}
 				
 				
@@ -78,7 +77,11 @@
 		}
 		
 		function successDB(){
+			
+		}
 		
+		function successTX(){
+			$("#listview").listview("refresh");
 		}
 		
 		function enid(){
