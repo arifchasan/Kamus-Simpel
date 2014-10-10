@@ -21,7 +21,7 @@
 			
 			db = openDatabase("kamussimple", "1.0", "kamussimple MAIN DATABASE", 200000);
 			
-			$('#search').bind('keyup', function(data) {
+			$('#search').bind('keyup change', function(data) {
 				var keyword = $('#search').val().replace(/'/g,"`");
 				$("#listview").html("");
 				if(keyword == "" || keyword == null){ 

@@ -47,7 +47,7 @@
 				}, errorDB, successDB);
 			}
 			
-			$('#search').bind('keyup', function(data) {
+			$('#search').bind('keyup change', function(data) {
 				var keyword = $('#search').val().replace(/'/g,"`");
 				$("#listview").html("");
 				if(keyword == "" || keyword == null){ 
