@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kamus</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/jquery.mobile.flatui.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.4.0-rc.1.js"></script>
+	<script type='application/javascript' src='js/fastclick.js'></script>
+	<script>
+		
+		$(function() {
+			
+			$(".ui-input-clear").on("click", function (e) {
+				$("#listview").html("");
+			});
+			
+			FastClick.attach(document.body);
+			
+			db = openDatabase("kamussimple", "1.0", "kamussimple MAIN DATABASE", 200000);
+			
+			$('#search').bind('keyup', function(data) {
+				var keyword = $('#search').val().replace(/'/g,"`");
+				$("#listview").html("");
+				if(keyword == "" || keyword == null){ 
+					
+				}else{
+				
+					db.transaction(function(tx){
+						tx.executeSql("SELECT *, LENGTH(kata) FROM en WHERE kata like '"+keyword+"%' ORDER BY kata ASC LIMIT 100", [], function(tx, results){
+							var len = results.rows.length;
+							for(var i = 0; i < len; i++){
+								$("#listview").append("<li><a href=\"#\"><p><b>"+results.rows.item(i).kata+"</b> "+results.rows.item(i).arti+"</p></a></li>");
+								$("#listview").listview("refresh");
+							}
+						}, errorTX);
+					}, errorDB, successDB);
+				}
+				
+				
+			});
+		});
+		
+		function errorTX(){
+			//loadjscssfile("db.js", "js");
+		}
+		
+		function errorDB(){
+			//alert("db");
+		}
+		
+		function successDB(){
+		
+		}
+	</script>
+</head>
+<body>
+
+<div data-role="page">
+	<div data-role="panel" id="panel" data-position="left" data-theme="f" data-display="overlay">
+		<ul data-theme="c" data-role="listview" data-inset="false">
+			<li><a href="iden.html">Indo - Eng</a></li>
+		  </ul>
+		  <p><i>&copy; 2014 - chasan.web.id</i></p>
+	</div>
+	<div data-role="header" data-theme="f">
+		<a data-iconpos="notext" href="#panel" data-role="button" data-icon="flat-menu"></a>
+		<h1>&nbsp; Kamus Eng - Indo</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<input id="search" type="text" placeholder="masukkan kata yang ingin dicari" data-clear-btn="true"/>
+		<ul id="listview" data-role="listview" data-theme="c" data-inset="true" data-icon="false">
+			
+		</ul>
+	</div><!-- /content -->
+	<!--<div data-role="footer" data-theme="f">
+		<h4>Page Footer</h4>
+	</div>--><!-- /footer -->
+</div><!-- /page -->
+
+</body>
+</html>
