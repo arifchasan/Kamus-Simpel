@@ -9,7 +9,7 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery.mobile-1.4.0-rc.1.js"></script>
 	<script type='application/javascript' src='js/fastclick.js'></script>
-	<script type='application/javascript' src='js/yepnope.js'></script>
+	<script type='application/javascript' src='js/debounce.js'></script>
 	<script>
 		function loadjscssfile(filename, filetype){
 			if (filetype=="js"){ //if filename is a external JavaScript file
@@ -47,7 +47,9 @@
 				}, errorDB, successDB);
 			}
 			
-			$('#search').bind('keyup change', function(data) {
+			$('#search').bind('keyup blur', $.debounce(process, 500));
+			
+			function process(){
 				var keyword = $('#search').val().replace(/'/g,"`");
 				$("#listview").html("");
 				if(keyword == "" || keyword == null){ 
@@ -68,7 +70,7 @@
 				}
 				
 				
-			});
+			}
 		});
 		
 		function errorTX(){
